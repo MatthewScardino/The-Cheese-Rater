@@ -42,7 +42,6 @@ module.exports = function(){
             if(callbackCount >= 2){
                 res.render('products', context);
             }
-
         }
     });
 
@@ -63,6 +62,9 @@ module.exports = function(){
             }
         });
     });
+
+    /*Searches Products by Type*/
+
 
     return router;
 }();

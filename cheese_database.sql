@@ -122,7 +122,7 @@ CREATE TABLE `Suggestions` (
   `product_ID` int(11) NOT NULL,
   `pairing_ID` int(11) NOT NULL,
   `user_ID` int(11) NOT NULL,
-  `suggestion_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `suggestion_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `comment` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

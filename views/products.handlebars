@@ -22,6 +22,27 @@
 
 <h1 style='text-align: center;'>Products</h1>
 
+<form class='filter-form' id="filter_products" action="/products/type_filter" method="GET">
+    Filter Products By Type: <select name="type">
+        {{#each products}}
+        <option>{{type}}</option>
+        {{/each}}
+        </select>
+    <input type="submit" value="Filter" id="type-html-search">
+</form>
+
+<form class='filter-form' id="filter_products" action="/products/brand_filter" method="GET">
+    Filter Products By Brand: <select name="brand_name">
+        {{#each products}}
+        <option>{{brand_name}}</option>
+        {{/each}}
+        <option>NULL</option>
+        </select>
+    <input type="submit" value="Filter" id="brand-html-search">
+</form>
+<a href='/employees'><button>Reset</button></a>
+
+
 <table class='table'>
     <thead> 
         <tr>
