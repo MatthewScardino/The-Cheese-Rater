@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>REVIEWS</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+</style>
+<script src=""></script>
+
+<body>
+
+	<div>
+		<div class="nav-bar">
+        <a href= / >Home</a>
+        <a href= /users >Users</a>
+        <a href= /brands >Brands</a>
+        <a href= /products >Products</a>
+        <a class="current" href= /reviews >Reviews</a>           
+        <a href= /pairings>Pairings</a>
+        <a href= /suggestions>Suggestions</a>
+      </div><br>
+	</div><br><br>
+
+<h1 style='text-align: center;'>Reviews</h1>
+
+<table class="table">
+		<thead>
+			<tr>
+				<th scope="col"> User</th>
+				<th scope="col"> Product</th>
+				<th scope="col"> Rating</th>
+				<th scope="col"> Comment</th>
+            </tr>
+        </thead> 
+    <tbody>
+        {{#each reviews}} 
+        <tr scope="row"> 
+            <td value="{{user_ID}}">{{fname}} {{lname}}</td> 
+            <td value="{{product_ID}}">{{product_name}}</td>             
+            <td>{{rating}}</td>
+            <td>{{# if comment}}{{comment}}{{else}}None{{/if}}</td> 
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+<h2>Add Review:</h2>
+<form class="entry-form" id="add_review" action="/reviews" method="post">
+
+    User: <select name="user_ID">
+        {{#each users}}
+        <option value="{{user_ID}}">{{fname}} {{lname}}</option>
+        {{/each}}
+    </select><br><br>
+
+    Product: <select name="product_ID">
+        {{#each products}}
+        <option value="{{product_ID}}">{{product_name}}</option>
+        {{/each}}
+    </select><br><br>
+
+    Rating: <select name="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select><br><br>    
+
+    Comment: <input name="comment" type="text" maxlength="255"><br><br>
+
+    <input type="submit" value="Add Review">
+</form><br>
+
+</html>

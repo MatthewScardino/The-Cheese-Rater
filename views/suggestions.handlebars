@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>SUGGESTIONS</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+</style>
+<script src=""></script>
+
+<body>
+
+  <div>
+      <div class="nav-bar">
+        <a href= / >Home</a>
+        <a href= /users >Users</a>
+        <a href= /brands >Brands</a>
+        <a href= /products >Products</a>
+        <a href= /reviews >Reviews</a>           
+        <a href= /pairings>Pairings</a>
+        <a class="current" href= /suggestions>Suggestions</a>
+      </div><br>
+    </div><br><br>
+
+<h1 style='text-align: center;'>Suggestions</h1>
+
+<table class='table'>
+    <thead>
+        <tr>
+          <th scope="col"> Product Name</th>
+          <th scope="col"> Pairing</th>
+          <th scope="col"> User</th>
+          <th scope="col"> Date</th>
+          <th scope="col"> Comment</th>
+        </tr>
+      </thead>
+    <tbody>
+        {{#each suggestions}} 
+        <tr scope="row"> 
+            <td value="{{product_ID}}">{{product_name}}</td>               <td value="{{pairing_ID}}">{{pairing_name}}</td> 
+            <td value="{{user_ID}}">{{fname}} {{lname}}</td> 
+            <td>{{suggestion_date}}</td>
+            <td>{{# if comment}}{{comment}}{{else}}None{{/if}}</td> 
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+<h2>Add Suggestions:</h2>
+<form class="entry-form" id="add_suggestion" action="/suggestions" method="post">
+
+    Product: <select name="product_ID">
+        {{#each products}}
+        <option value="{{product_ID}}">{{product_name}}</option>
+        {{/each}}
+    </select><br><br>
+
+    Pairing: <select name="pairing_ID">
+        {{#each pairings}}
+        <option value="{{pairing_ID}}">{{pairing_name}}</option>
+        {{/each}}
+    </select><br><br>
+
+    User: <select name="user_ID">
+        {{#each users}}
+        <option value="{{user_ID}}">{{fname}} {{lname}}</option>
+        {{/each}}
+    </select><br><br>
+
+    Comment: <input name="comment" type="text" maxlength="255"><br><br>
+
+    <input type="submit" value="Add Suggestions">
+</form><br>
+</html>

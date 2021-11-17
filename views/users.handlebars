@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>USERS</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+</style>
+<script src=""></script>
+
+<body>
+  <div>
+    <div class="nav-bar">
+        <a href= / >Home</a>
+        <a class="current" href= /users >Users</a>
+        <a href= /brands >Brands</a>
+        <a href= /products >Products</a>
+        <a href= /reviews >Reviews</a>           
+        <a href= /pairings>Pairings</a>
+        <a href= /suggestions>Suggestions</a>
+      </div><br>
+  </div><br><br>
+
+<h1 style='text-align: center;'>Users</h1>
+
+<table class="table">
+    <thead> 
+        <th scope="col"> First Name</th>
+        <th scope="col"> Last Name</th>
+        <th scope="col"> Email</th>
+        <th scope="col"> Password</th>
+    </thead> 
+    <tbody>
+        {{#each users}} 
+        <tr scope="row"> 
+            <td>{{fname}}</td> 
+            <td>{{lname}}</td> 
+            <td>{{email}}</td> 
+            <td>{{password}}</td> 
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+<h2>Add User:</h2>
+<form class="entry-form" id="add_user" action="/users" method="post">
+    First Name: <input name="fname" type="text" maxlength="30"><br><br>
+    Last Name: <input name="lname" type="text" maxlength="30"><br><br>
+    Email: <input name="email" type="text" maxlength="50"><br><br>
+    Password: <input name="password" type="text" maxlength="20"><br><br>
+    <input type="submit" value="Add User">
+</form><br>
+
+</html>

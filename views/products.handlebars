@@ -1,0 +1,58 @@
+<html lang="en">
+<meta charset="UTF-8">
+<title>PRODUCTS</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+</style>
+<script src=""></script>
+
+<body>
+  <div>
+      <div class="nav-bar">
+        <a href= / >Home</a>
+        <a href=/users >Users</a>
+        <a href= /brands >Brands</a>
+        <a class="current" href= /products >Products</a>
+        <a href= /reviews >Reviews</a>           
+        <a href= /pairings>Pairings</a>
+        <a href= /suggestions>Suggestions</a>
+      </div><br>
+  </div><br><br>
+
+<h1 style='text-align: center;'>Products</h1>
+
+<table class='table'>
+    <thead> 
+        <tr>
+            <th scope="col"> Product Name</th>
+            <th scope="col"> Type</th>
+            <th scope="col"> Brand Name</th>
+            <th scope="col"> Description</th>
+        </tr>
+    </thead> 
+    <tbody>
+        {{#each products}} 
+        <tr scope = 'row'> 
+            <td>{{product_name}}</td> 
+            <td>{{type}}</td> 
+            <td>{{brand_name}}</td>
+            <td>{{description}}</td> 
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+<h2>Add Product:</h2>
+<form class='entry-form' id="add_product" action="/products" method="post">
+    Name: <input name="product_name" type="text" maxlength="50"><br><br>
+    Brand: <select name="brand_ID">
+        {{#each brands}}
+        <option value="{{brand_ID}}">{{brand_name}}</option>
+        {{/each}}
+    </select><br><br>
+    Type: <input name="type" type="text" maxlength="20"><br><br>
+    Description: <input name="description" type="text" maxlength="255"><br><br>
+    <input type="submit" value="Add Product">
+</form><br>
+</html>

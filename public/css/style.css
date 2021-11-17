@@ -1,0 +1,92 @@
+.nav-bar {
+	background-color: gold;
+	font-size: 22px;
+	text-align: center;
+	padding: 26px;
+	width: 100%;
+	position: relative;
+	display: inline-block;
+    	margin-right: auto;    
+    	margin-left: auto;    
+    	max-width: 100%;    
+    	min-width: 1000px;
+}
+
+.nav-bar a:hover {
+	text-decoration: none;
+	color: green;
+}
+
+.nav-bar a {
+	text-align: center;
+	color: black;
+	padding: 20px;
+	text-decoration: none;
+	font-weight: bold;
+	font-family: "Helvetica", Helvetica, sans-serif;
+}
+
+.current {
+	border-style: solid;
+	border-color: white;
+}
+
+.table {
+	text-align: center;
+	padding: 5px;
+}
+
+.panel-column{
+	display: inline-block;
+  	width: 25%;
+  	padding: 20px;
+}
+
+.panel-row {
+	margin: -5px;
+}
+
+.blocks {
+	box-shadow: 0 4px 8px 0 black;
+  	padding: 5px;
+	padding-bottom: 10px;
+  	text-align: center;
+  	background-color: #f1f1f1;
+	transition: all .3s;
+}
+
+.blocks:hover{
+	background-color: gold;
+	cursor: pointer;
+	transform: scale(1.1);
+}
+
+.page-title {
+	color: black;
+	font-size: 12pt;
+	padding: 0px;
+}
+
+body {
+	background-color: #FBFAF5;
+    position: center;
+    margin: 0px;
+
+}
+
+.table {
+	margin: auto;
+	width: 100%;
+}
+
+table, th, td {
+	border: 1px solid black;
+  }
+
+th {
+	background-color: gold;
+}
+
+tr:hover{
+	background-color: lightcyan;
+}
