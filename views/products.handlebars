@@ -25,14 +25,19 @@
 
 <form id='filter_products' action='' method=''>
     <label> Filter by Brand: </label>
-    <select id='brand_filter' name="brand"> 
+    <select id='brand_filter' name="brands"> 
         {{#each brands}}
         <option value="{{brand_ID}}">{{brand_name}}</option>
         {{/each}}
     </select>
-    <input type="button" value="Filter" onclick="filterProductsByBrand()">
+    <input type="submit" value="Filter" onclick= 'filterProductsByBrand()'>
 </form>
 
+<form id='search_products' action='' method=''>
+    <label> Search Products For Name Starting with:</label>
+    <input id='name_search_string' type='text' name='name_search_string' value=''>
+    <button type="button" onclick="searchProductsByName()">Submit</button>
+</form>
 
 <table class='table'>
     <thead> 

@@ -31,10 +31,25 @@ module.exports = function(){
     /*Filter function - Display all products of a given type.*/
 
     function getProductsByBrand(req, res, mysql, context, complete){
-        var query = "SELECT product_name, type, Brands.brand_name, description FROM Products INNER JOIN Brands ON Brands.brand_ID = Products.brand_ID WHERE Brands.brand_name = ?";
+        var query = "SELECT product_name, type, Brands.brand_name, description FROM Products INNER JOIN Brands ON Brands.brand_ID = Products.brand_ID WHERE Products.brand_ID = ?";
         console.log(req.params)
-        var inserts = [req.params.brand_name]
+        var inserts = [req.params.brand_ID]
         mysql.pool.query(query, inserts, function(error, results, fields){
+              if(error){
+                  res.write(JSON.stringify(error));
+                  res.end();
+              }
+              context.products = results;
+              complete();
+          });
+      }
+
+    /* Find procucts name that starts with a given string */
+    function getProductsWithNameLike(req, res, mysql, context, complete) {
+          var query = "SELECT product_name, type, Brands.brand_name, description FROM Products INNER JOIN Brands ON Brands.brand_ID = Products.brand_ID WHERE Products.product_name LIKE " + mysql.pool.escape(req.params.s + '%');
+          console.log(query)
+  
+          mysql.pool.query(query, function(error, results, fields){
               if(error){
                   res.write(JSON.stringify(error));
                   res.end();
@@ -61,11 +76,12 @@ module.exports = function(){
         }
     });
 
-    /*Display all products from a given type*/
-    router.get('/filter/:brand', function(req, res){
+    /*Display all products from a given brand*/
+
+    router.get('/filter/:brand_ID', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleteproducts.js","filterproducts.js","searchproducts.js"];
+        context.jsscripts = ["filterproducts.js"];
         var mysql = req.app.get('mysql');
         getProductsByBrand(req,res, mysql, context, complete);
         getBrands(res, mysql, context, complete);
@@ -94,6 +110,23 @@ module.exports = function(){
                 res.redirect('/products');
             }
         });
+    });
+
+    /*Display all products name that starts with a given string.*/
+
+    router.get('/search/:s', function(req, res){
+        var callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["filterproducts.js","searchproducts.js"];
+        var mysql = req.app.get('mysql');
+        getProductsWithNameLike(req, res, mysql, context, complete);
+        getBrands(res, mysql, context, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 2){
+                res.render('products', context);
+            }
+        }
     });
 
     return router;
