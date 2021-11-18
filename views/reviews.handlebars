@@ -40,6 +40,8 @@
             <td value="{{product_ID}}">{{product_name}}</td>             
             <td>{{rating}}</td>
             <td>{{# if comment}}{{comment}}{{else}}None{{/if}}</td> 
+            <td><button onclick="deleteReview({{user_ID}}{{product_ID}})">Delete</button></td>
+            <td><button onclick="href='/reviews/{{user_ID}}{{product_ID}}'">Update</button></td>
         </tr> 
         {{/each}} 
     </tbody> 
