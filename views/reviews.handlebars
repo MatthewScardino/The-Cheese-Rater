@@ -36,8 +36,8 @@
     <tbody>
         {{#each reviews}} 
         <tr scope="row"> 
-            <td value="{{user_ID}}">{{fname}} {{lname}}</td> 
-            <td value="{{product_ID}}">{{product_name}}</td>             
+            <td value= {{user_ID}}>{{fname}} {{lname}}</td> 
+            <td value={{product_ID}}>{{product_name}}</td>             
             <td>{{rating}}</td>
             <td>{{# if comment}}{{comment}}{{else}}None{{/if}}</td> 
             <td>

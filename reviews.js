@@ -92,7 +92,6 @@ module.exports = function(){
         });
     });
 
-
     /*Displays all Reviews with user names and product names*/
 
     router.get('/', function(req, res){
