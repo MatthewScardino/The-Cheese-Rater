@@ -26,7 +26,6 @@
   <table class="table">
     <thead>
         <tr>
-            <th scope="col"> brand_ID</th>
             <th scope="col"> Brand Name</th>
             <th scope="col"> Country of Origin</th>
             <th scope="col"> Website</th>
@@ -34,11 +33,13 @@
     </thead>
     <tbody>
         {{#each brands}} 
-        <tr> 
-            <td>{{brand_ID}}</td>
+        <tr scope="row"> 
             <td>{{brand_name}}</td> 
             <td>{{country_of_origin}}</td> 
             <td>{{# if website}}{{website}}{{else}}None{{/if}}</td> 
+            <td>
+                <button onclick= deleteBrand({{brand_ID}})>Delete</button>
+            </td>
         </tr> 
         {{/each}}
     </tbody>

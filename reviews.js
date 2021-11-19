@@ -5,7 +5,7 @@ module.exports = function(){
     /*Retreives all Reviews. Uses user_ID and product_ID to get user name and product name*/
 
     function getReviews(res, mysql, context, complete){
-        mysql.pool.query("SELECT Users.fname, Users.lname, Products.product_name, rating, comment FROM Reviews INNER JOIN Users ON Users.user_ID = Reviews.user_ID INNER JOIN Products ON Products.product_ID = Reviews.product_ID", function(error, results, fields){
+        mysql.pool.query("SELECT review_ID, Users.fname, Users.lname, Products.product_name, rating, comment FROM Reviews INNER JOIN Users ON Users.user_ID = Reviews.user_ID INNER JOIN Products ON Products.product_ID = Reviews.product_ID", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -42,7 +42,7 @@ module.exports = function(){
     }
 
     function getReview(res, mysql, context, review_ID, complete){
-        var sql = "SELECT user_ID, product_ID, rating, comment FROM Reviews WHERE review_ID = ?";
+        var sql = "SELECT review_ID, user_ID, product_ID, rating, comment FROM Reviews WHERE review_ID = ?";
         var inserts = [review_ID];
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
@@ -66,7 +66,7 @@ module.exports = function(){
         getProducts(res, mysql, context, complete)
         function complete(){
             callbackCount++;
-            if(callbackCount >= 2){
+            if(callbackCount >= 3){
                 res.render('update-review', context);
             }
         }
@@ -77,7 +77,7 @@ module.exports = function(){
     router.put('/:review_ID', function(req, res){
         var mysql = req.app.get('mysql');
         console.log(req.body)
-        console.log(req.params.review_id)
+        console.log(req.params.review_ID)
         var sql = "UPDATE Reviews SET user_ID=?, product_ID=?, rating=?, comment=? WHERE review_ID=?";
         var inserts = [req.body.user_ID, req.body.product_ID, req.body.rating, req.body.comment, req.params.review_ID];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
@@ -98,7 +98,7 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deletereview.js"]
+        context.jsscripts = ["deletereview.js"];
         var mysql = req.app.get('mysql');
         getProducts(res, mysql, context, complete);
         getUsers(res, mysql, context, complete);
@@ -129,7 +129,7 @@ module.exports = function(){
         });
     });
 
-    /* Route to delete a person, simply returns a 202 upon success. Ajax will handle this. */
+    /* Route to delete a person, returns a 202 upon success. */
 
     router.delete('/:review_ID', function(req, res){
         var mysql = req.app.get('mysql');

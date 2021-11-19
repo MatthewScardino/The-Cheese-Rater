@@ -3,17 +3,17 @@
 <form id="update-review" action="/reviews" method="post">
     User: <select name="user_ID">
         {{#each users}}
-        <option value="{{user_ID}}">{{fname}} {{lname}}</option>
+        <option value= {{user_ID}} >{{fname}} {{lname}}</option>
         {{/each}}
     </select><br><br>
 
     Product: <select name="product_ID">
         {{#each products}}
-        <option value="{{product_ID}}">{{product_name}}</option>
+        <option value={{product_ID}}>{{product_name}}</option>
         {{/each}}
     </select><br><br>
 
-    Rating: <select name="rating" value="{{Reviews.rating}}">
+    Rating: <select name="rating" value={{Reviews.rating}}>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -26,9 +26,9 @@
         <option value="10">10</option>
     </select><br><br>    
 
-    Comment: <input name="comment" type="text" maxlength="255" value="{{Reviews.comment}}"><br><br>
+    Comment: <input name="comment" type="text" maxlength="255" value={{Reviews.comment}}><br><br>
 </form>
-<button onclick="updateReview({{Reviews.review_ID}})">Update</button>
+<button onclick= updateReview({{Reviews.review_ID}})>Update</button>
 <script defer>selectUser({{Reviews.user_ID});</script>
 <script defer>selectProduct({{Reviews.product_ID});</script>
 </html>

@@ -19,6 +19,7 @@ module.exports = function(){
 
     router.get('/', function(req, res){
         var context = {};
+        context.jsscripts = ["deletebrands.js"];
         var mysql = req.app.get('mysql');
         getBrands(res, mysql, context, complete);
         function complete(){
@@ -49,7 +50,7 @@ module.exports = function(){
     router.delete('/:brand_ID', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM Brands WHERE brand_ID = ?";
-        var inserts = [req.params.id];
+        var inserts = [req.params.brand_ID];
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 console.log(error)
@@ -61,7 +62,6 @@ module.exports = function(){
             }
         })
     })
-
 
     return router;
 }();
