@@ -1,4 +1,7 @@
 <html lang="en">
+{{#each foo}}
+{{this}}
+{{/each}}
 <meta charset="UTF-8">
 <title>PRODUCTS</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -30,23 +33,33 @@
         <option value="{{brand_ID}}">{{brand_name}}</option>
         {{/each}}
     </select>
-    <input type="submit" value="Filter" onclick= 'filterProductsByBrand()'>
+    <input type="button" value="Filter" onclick= "filterProductsByBrand()">
+</form>
+
+<form id='filter_products' action='' method=''>
+    <label> Filter by Type: </label>
+    <select id='type_filter' name="type"> 
+        {{#each products}}
+        <option>{{type}}</option>
+        {{/each}}
+    </select>
+    <input type="button" value="Filter" onclick= "filterProductsByType()">
 </form>
 
 <form id='search_products' action='' method=''>
-    <label> Search Products For Name Starting with:</label>
+    <label> Search by Name:</label>
     <input id='name_search_string' type='text' name='name_search_string' value=''>
-    <button type="button" onclick="searchProductsByName()">Submit</button>
-</form>
+    <input type="button" onclick= "searchProductsByName()" value='Search'>
+</form><br>
+
+<a href='/products'><button>Reset</button></a><br><br>
 
 <table class='table'>
     <thead> 
-        <tr>
-            <th scope="col"> Product Name</th>
-            <th scope="col"> Type</th>
-            <th scope="col"> Brand Name</th>
-            <th scope="col"> Description</th>
-        </tr>
+        <th scope="col"> Product Name</th>
+        <th scope="col"> Type</th>
+        <th scope="col"> Brand Name</th>
+        <th scope="col"> Description</th>
     </thead> 
     <tbody>
         {{#each products}} 

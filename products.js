@@ -45,6 +45,7 @@ module.exports = function(){
       }
 
     /* Find procucts name that starts with a given string */
+    
     function getProductsWithNameLike(req, res, mysql, context, complete) {
           var query = "SELECT product_name, type, Brands.brand_name, description FROM Products INNER JOIN Brands ON Brands.brand_ID = Products.brand_ID WHERE Products.product_name LIKE " + mysql.pool.escape(req.params.s + '%');
           console.log(query)
@@ -99,7 +100,7 @@ module.exports = function(){
         console.log(req.body.brand)
         console.log(req.body); //for debugging purposes
         var mysql = req.app.get('mysql');
-        var sql = "INSERT INTO Products (product_name, brand_ID,type, description) VALUES (?,?,?,?)";
+        var sql = "INSERT INTO Products (product_name, brand_ID, type, description) VALUES (?,?,?,?)";
         var inserts = [req.body.product_name, req.body.brand_ID, req.body.type, req.body.description];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields) {
             if(error){

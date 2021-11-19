@@ -41,11 +41,64 @@ module.exports = function(){
         });
     }
 
+    function getReview(res, mysql, context, review_ID, complete){
+        var sql = "SELECT user_ID, product_ID, rating, comment FROM Reviews WHERE review_ID = ?";
+        var inserts = [review_ID];
+        mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.reviews = results[0];
+            complete();
+        });
+    }
+
+    /* Display one Review for the specific purpose of updating the review */
+
+    router.get('/:review_ID', function(req, res){
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["selectedproduct.js", "selecteduser.js", "updatereview.js"];
+        var mysql = req.app.get('mysql');
+        getReview(res, mysql, context, req.params.review_ID, complete);
+        getUsers(res, mysql, context, complete);
+        getProducts(res, mysql, context, complete)
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 2){
+                res.render('update-review', context);
+            }
+        }
+    });
+
+    /* The URI that update data is sent to in order to update a review */
+
+    router.put('/:review_ID', function(req, res){
+        var mysql = req.app.get('mysql');
+        console.log(req.body)
+        console.log(req.params.review_id)
+        var sql = "UPDATE Reviews SET user_ID=?, product_ID=?, rating=?, comment=? WHERE review_ID=?";
+        var inserts = [req.body.user_ID, req.body.product_ID, req.body.rating, req.body.comment, req.params.review_ID];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
+            }
+        });
+    });
+
+
     /*Displays all Reviews with user names and product names*/
 
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
+        context.jsscripts = ["deletereview.js"]
         var mysql = req.app.get('mysql');
         getProducts(res, mysql, context, complete);
         getUsers(res, mysql, context, complete);
@@ -75,6 +128,24 @@ module.exports = function(){
             }
         });
     });
+
+    /* Route to delete a person, simply returns a 202 upon success. Ajax will handle this. */
+
+    router.delete('/:review_ID', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM Reviews WHERE review_ID = ?";
+        var inserts = [req.params.review_ID];
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })
+    })
 
     return router;
 }();

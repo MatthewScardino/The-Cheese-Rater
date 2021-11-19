@@ -15,7 +15,7 @@ var handlebars = require('express-handlebars').create({
 
 app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static(__dirname + '/public'));
+app.use('/static', express.static('public'));
 app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
 app.set('mysql', mysql);
@@ -25,6 +25,7 @@ app.use('/users', require('./users.js'));
 app.use('/reviews', require('./reviews.js'));
 app.use('/pairings', require('./pairings.js'));
 app.use('/suggestions', require('./suggestions.js'));
+app.use('/', express.static('public'));
 
 
 app.use(function(req,res){
