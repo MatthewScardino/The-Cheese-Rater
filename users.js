@@ -5,7 +5,7 @@ module.exports = function(){
     /*Retrieve all Users from database*/
 
     function getUsers(res, mysql, context, complete){
-        mysql.pool.query("SELECT fname, lname, email, password FROM Users", function(error, results, fields){
+        mysql.pool.query("SELECT user_ID, fname, lname, email, password FROM Users", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -19,6 +19,7 @@ module.exports = function(){
 
     router.get('/', function(req, res){
         var context = {};
+        context.jsscripts = ["deleteuser.js"];
         var mysql = req.app.get('mysql');
         getUsers(res, mysql, context, complete);
         function complete(){
@@ -43,6 +44,24 @@ module.exports = function(){
             }
         });
     });
+
+    /* Route to delete a person, simply returns a 202 upon success. Ajax will handle this. */
+
+    router.delete('/:user_ID', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM Users WHERE user_ID = ?";
+        var inserts = [req.params.user_ID];
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })
+    })
 
     return router;
 }();

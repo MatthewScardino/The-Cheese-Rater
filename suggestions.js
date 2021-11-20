@@ -59,6 +59,7 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
+        context.jsscripts = ["deletesuggestions.js"]
         var mysql = req.app.get('mysql');
         getProducts(res, mysql, context, complete);
         getUsers(res, mysql, context, complete);
@@ -89,6 +90,24 @@ module.exports = function(){
             }
         });
     });
+
+    /* Route to delete a prodcut, simply returns a 202 upon success. Ajax will handle this. */
+
+    router.delete('/:ID', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM Suggestions WHERE product_ID = ? AND pairing_ID = ? AND user_ID = ?";
+        var inserts = [req.params.product_ID, req.params.pairing_ID, req.params.user_ID];
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })
+    })
 
     return router;
 }();

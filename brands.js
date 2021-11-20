@@ -19,13 +19,14 @@ module.exports = function(){
 
     router.get('/', function(req, res){
         var context = {};
-        context.jsscripts = ["deletebrands.js"];
+        context.jsscripts = ["deletebrand.js"];
         var mysql = req.app.get('mysql');
         getBrands(res, mysql, context, complete);
         function complete(){
-                res.render('brands', context);
+            res.render('brands', context);
             }
-    });
+        }
+    );
 
     /*Add a Brand*/
 

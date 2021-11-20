@@ -67,7 +67,10 @@
             <td>{{product_name}}</td> 
             <td>{{type}}</td> 
             <td>{{brand_name}}</td>
-            <td>{{description}}</td> 
+            <td>{{description}}</td>
+            <td>
+                <button onclick= deleteProduct({{product_ID}})>Delete</button>
+            </td>
         </tr> 
         {{/each}} 
     </tbody> 

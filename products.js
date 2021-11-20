@@ -18,7 +18,7 @@ module.exports = function(){
     /*Retreives all Products. Uses brand_ID to display brand_name*/
 
     function getProducts(res, mysql, context, complete){
-        mysql.pool.query("SELECT product_name, type, Brands.brand_name, description FROM Products INNER JOIN Brands ON Brands.brand_ID = Products.brand_ID", function(error, results, fields){
+        mysql.pool.query("SELECT product_ID, product_name, type, Brands.brand_name, description FROM Products INNER JOIN Brands ON Brands.brand_ID = Products.brand_ID", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -129,6 +129,25 @@ module.exports = function(){
             }
         }
     });
+
+    /* Route to delete a prodcut, simply returns a 202 upon success. Ajax will handle this. */
+
+    router.delete('/:product_ID', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM Products WHERE product_ID = ?";
+        var inserts = [req.params.product_ID];
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })
+    })
+
 
     return router;
 }();

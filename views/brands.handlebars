@@ -1,4 +1,3 @@
-
 <html lang="en">
 <meta charset="UTF-8">
 <title>BRANDS</title>
@@ -37,6 +36,9 @@
             <td>{{brand_name}}</td> 
             <td>{{country_of_origin}}</td> 
             <td>{{# if website}}{{website}}{{else}}None{{/if}}</td> 
+            <td>
+                <button onclick= deleteBrand({{brand_ID}})>Delete</button>
+            </td>
         </tr> 
         {{/each}}
     </tbody>
