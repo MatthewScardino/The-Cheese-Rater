@@ -32,8 +32,8 @@
     <tbody>
         {{#each pairings}} 
         <tr scope="row"> 
-            <td>{{pairing_name}}</td> 
-            <td>{{brand_name}}</td> 
+            <td>{{pairing_name}}</td>
+            <td>{{#if brand_name}}{{brand_name}}{{else}}None{{/if}}</td> 
             <td>
                 <button onclick= deletePairing({{pairing_ID}})>Delete</button>
             </td>

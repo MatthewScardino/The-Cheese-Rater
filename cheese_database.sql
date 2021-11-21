@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 16, 2021 at 04:37 PM
+-- Generation Time: Nov 21, 2021 at 07:51 PM
 -- Server version: 10.4.21-MariaDB-log
--- PHP Version: 7.4.23
+-- PHP Version: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,8 +63,8 @@ CREATE TABLE `Pairings` (
 
 INSERT INTO `Pairings` (`pairing_ID`, `pairing_name`, `brand_ID`) VALUES
 (1, 'Red Wine', 2),
-(2, 'Crackers', 3);
-(3, 'White Wine', 1)
+(2, 'Crackers', NULL),
+(3, 'Grapes', 2);
 
 -- --------------------------------------------------------
 
@@ -87,8 +87,8 @@ CREATE TABLE `Products` (
 
 INSERT INTO `Products` (`product_ID`, `product_name`, `brand_ID`, `type`, `description`) VALUES
 (1, 'Smelly Muenster', 1, 'Muenster', 'very stinky muenster!'),
-(2, 'Mild Havarti', 3, 'Havarti', 'a sliced mild havarti cheese');
-(3, 'Cheesy Cheddar', 2, 'Cheddar', 'classic cheddar');
+(2, 'Mild Havarti', 3, 'Havarti', 'a sliced mild havarti cheese'),
+(3, 'Classic Cheddar', 3, 'Cheddar', 'a classic cheddar cheese');
 
 -- --------------------------------------------------------
 
@@ -111,8 +111,8 @@ CREATE TABLE `Reviews` (
 
 INSERT INTO `Reviews` (`review_ID`, `user_ID`, `product_ID`, `rating`, `comment`) VALUES
 (1, 2, 1, 9, 'I love this stinky Muenster from Stinky\'s Cheeses!'),
-(2, 1, 2, 2, 'This mild havarti from cheese kings STINK! And I mean that in a BAD way!');
-(3, 3, 3, 7, 'This was fantastic');
+(2, 1, 2, 2, 'This mild havarti from cheese kings STINK! And I mean that in a BAD way!'),
+(3, 3, 3, 7, 'A great cheese for a long sleigh ride!');
 
 -- --------------------------------------------------------
 
@@ -125,7 +125,7 @@ CREATE TABLE `Suggestions` (
   `product_ID` int(11) NOT NULL,
   `pairing_ID` int(11) NOT NULL,
   `user_ID` int(11) NOT NULL,
-  `suggestion_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `suggestion_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `comment` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -134,9 +134,9 @@ CREATE TABLE `Suggestions` (
 --
 
 INSERT INTO `Suggestions` (`product_ID`, `pairing_ID`, `user_ID`, `suggestion_date`, `comment`) VALUES
-(1, 2, 1, '2021-11-16 16:34:03', 'Crackers mix well with this cheese!'),
-(2, 1, 2, '2021-11-16 16:34:03', NULL);
-(3, 3, 3, '2021-11-16 16:34:03', 'These are so good together')
+(1, 2, 1, '2021-11-21 19:49:43', 'Crackers mix well with this cheese!'),
+(2, 1, 2, '2021-11-21 19:49:43', NULL),
+(3, 3, 3, '2021-11-21 19:49:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -159,8 +159,8 @@ CREATE TABLE `Users` (
 
 INSERT INTO `Users` (`user_ID`, `fname`, `lname`, `email`, `password`) VALUES
 (1, 'Jacob', 'Russell', 'russelj2@oregonstate.edu', 'oregon123'),
-(2, 'Matt', 'Scardino', 'scardinm@oregonstate.edu', 'OSU0000');
-(3, 'Santa', 'Claus', 'santa123@northpole.edu', 'cookies1')
+(2, 'Matt', 'Scardino', 'scardinm@oregonstate.edu', 'OSU0000'),
+(3, 'Santa', 'Claus', 'santaclaus123@northpole.net', 'Cookies1');
 
 --
 -- Indexes for dumped tables
@@ -226,25 +226,25 @@ ALTER TABLE `Brands`
 -- AUTO_INCREMENT for table `Pairings`
 --
 ALTER TABLE `Pairings`
-  MODIFY `pairing_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pairing_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `Products`
 --
 ALTER TABLE `Products`
-  MODIFY `product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `Reviews`
 --
 ALTER TABLE `Reviews`
-  MODIFY `review_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `review_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
