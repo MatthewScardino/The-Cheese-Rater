@@ -63,7 +63,8 @@ CREATE TABLE `Pairings` (
 
 INSERT INTO `Pairings` (`pairing_ID`, `pairing_name`, `brand_ID`) VALUES
 (1, 'Red Wine', 2),
-(2, 'Crackers', NULL);
+(2, 'Crackers', 3);
+(3, 'White Wine', 1)
 
 -- --------------------------------------------------------
 
@@ -87,6 +88,7 @@ CREATE TABLE `Products` (
 INSERT INTO `Products` (`product_ID`, `product_name`, `brand_ID`, `type`, `description`) VALUES
 (1, 'Smelly Muenster', 1, 'Muenster', 'very stinky muenster!'),
 (2, 'Mild Havarti', 3, 'Havarti', 'a sliced mild havarti cheese');
+(3, 'Cheesy Cheddar', 2, 'Cheddar', 'classic cheddar');
 
 -- --------------------------------------------------------
 
@@ -110,6 +112,7 @@ CREATE TABLE `Reviews` (
 INSERT INTO `Reviews` (`review_ID`, `user_ID`, `product_ID`, `rating`, `comment`) VALUES
 (1, 2, 1, 9, 'I love this stinky Muenster from Stinky\'s Cheeses!'),
 (2, 1, 2, 2, 'This mild havarti from cheese kings STINK! And I mean that in a BAD way!');
+(3, 3, 3, 7, 'This was fantastic');
 
 -- --------------------------------------------------------
 
@@ -133,6 +136,7 @@ CREATE TABLE `Suggestions` (
 INSERT INTO `Suggestions` (`product_ID`, `pairing_ID`, `user_ID`, `suggestion_date`, `comment`) VALUES
 (1, 2, 1, '2021-11-16 16:34:03', 'Crackers mix well with this cheese!'),
 (2, 1, 2, '2021-11-16 16:34:03', NULL);
+(3, 3, 3, '2021-11-16 16:34:03', 'These are so good together')
 
 -- --------------------------------------------------------
 
@@ -156,6 +160,7 @@ CREATE TABLE `Users` (
 INSERT INTO `Users` (`user_ID`, `fname`, `lname`, `email`, `password`) VALUES
 (1, 'Jacob', 'Russell', 'russelj2@oregonstate.edu', 'oregon123'),
 (2, 'Matt', 'Scardino', 'scardinm@oregonstate.edu', 'OSU0000');
+(3, 'Santa', 'Claus', 'santa123@northpole.edu', 'cookies1')
 
 --
 -- Indexes for dumped tables

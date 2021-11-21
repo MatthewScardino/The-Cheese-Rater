@@ -1,3 +1,3 @@
-function selectUser(id){
-    $("#user-selector").val(id);
+function selectUser(user_ID){
+    $("#user-selector").val(user_ID);
 }

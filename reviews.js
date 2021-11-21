@@ -63,7 +63,7 @@ module.exports = function(){
         var mysql = req.app.get('mysql');
         getReview(res, mysql, context, req.params.review_ID, complete);
         getUsers(res, mysql, context, complete);
-        getProducts(res, mysql, context, complete)
+        getProducts(res, mysql, context, complete);
         function complete(){
             callbackCount++;
             if(callbackCount >= 3){
