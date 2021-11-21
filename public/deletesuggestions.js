@@ -1,6 +1,6 @@
-function deleteSuggestion(suggestion_ID){
+function deleteSuggestion(product_ID, user_ID, brand_ID){
     $.ajax({
-        url: '/suggestions/' + suggestion_ID,
+        url: '/suggestions/' + product_ID, user_ID, brand_ID,
         type: 'DELETE',
         success: function(result){
             window.location.reload(true);
