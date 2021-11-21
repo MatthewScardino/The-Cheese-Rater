@@ -42,14 +42,14 @@ module.exports = function(){
     }
 
     function getReview(res, mysql, context, review_ID, complete){
-        var sql = "SELECT review_ID, user_ID, product_ID, rating, comment FROM Reviews WHERE review_ID = ?";
+        var sql = "SELECT review_ID, Reviews.user_ID, Reviews.product_ID, Users.fname, Users.lname, Products.product_name, rating, comment FROM Reviews INNER JOIN Users ON Users.user_ID = Reviews.user_ID INNER JOIN Products ON Products.product_ID = Reviews.product_ID WHERE review_ID =?";
         var inserts = [review_ID];
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.reviews = results[0];
+            context.review = results[0];
             complete();
         });
     }
@@ -64,9 +64,10 @@ module.exports = function(){
         getReview(res, mysql, context, req.params.review_ID, complete);
         getUsers(res, mysql, context, complete);
         getProducts(res, mysql, context, complete);
+        getReviews(res, mysql, context, complete);
         function complete(){
             callbackCount++;
-            if(callbackCount >= 3){
+            if(callbackCount >= 4){
                 res.render('update-review', context);
             }
         }
