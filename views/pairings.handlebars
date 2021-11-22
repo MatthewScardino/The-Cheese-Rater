@@ -33,7 +33,7 @@
         {{#each pairings}} 
         <tr scope="row"> 
             <td>{{pairing_name}}</td>
-            <td>{{#if brand_ID}}{{brand_name}}{{else}}None{{/if}}</td> 
+            <td>{{#if brand_name}}{{brand_name}}{{else}}None{{/if}}</td> 
             <td>
                 <button onclick= deletePairing({{pairing_ID}})>Delete</button>
             </td>
@@ -47,11 +47,10 @@
 <form class='entry-form' id="add_pairing" action="/pairings" method="post">
     Name: <input name="pairing_name" type="text" maxlength="50"><br><br>
     Brand: <select name="brand_ID">
-        <option value="NULL">NULL</option>
+        <option value=>NULL</option>
         {{#each brands}}
         <option value="{{brand_ID}}">{{brand_name}}</option>
         {{/each}}
-        <option>NULL</option>
     </select><br><br>
     <input type="submit" value="Add Pairing">
 </form><br>

@@ -5,7 +5,7 @@ module.exports = function(){
     /*Retreives all Pairings. Uses brand_ID to display brand_name*/
 
     function getPairings(res, mysql, context, complete){
-        mysql.pool.query("SELECT pairing_ID, pairing_name, Brands.brand_name FROM Pairings INNER JOIN Brands ON Brands.brand_ID = Pairings.brand_ID", function(error, results, fields){
+        mysql.pool.query("SELECT Pairings.brand_ID, pairing_ID, pairing_name, Brands.brand_name FROM Pairings LEFT JOIN Brands ON Brands.brand_ID = Pairings.brand_ID", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
