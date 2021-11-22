@@ -49,8 +49,13 @@ module.exports = function(){
     router.post('/', function(req, res){
         console.log(req.body); //for debugging purposes
         var mysql = req.app.get('mysql');
-        var sql = "INSERT INTO Pairings (pairing_name, brand_ID) VALUES (?,?)";
-        var inserts = [req.body.pairing_name, req.body.brand_ID];
+        if (req.body.brand_ID == "NULL") {
+            var sql = "INSERT INTO Pairings (pairing_name) VALUES (?)";
+            var inserts = [req.body.pairing_name];
+        } else {
+            var sql = "INSERT INTO Pairings (pairing_name, brand_ID) VALUES (?,?)";
+            var inserts = [req.body.pairing_name, req.body.brand_ID];
+        };
         sql = mysql.pool.query(sql,inserts,function(error, results, fields) {
             if(error){
                 console.log(JSON.stringify(error));
