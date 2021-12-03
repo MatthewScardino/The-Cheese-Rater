@@ -95,12 +95,28 @@ module.exports = function(){
 
     /*Display all products from a given brand or type*/
 
-    router.get('/filter/:brand_ID', function(req, res){
+    router.get('/filter/brand/:brand_ID', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["filterproducts.js"];
+        context.jsscripts = ["filterproducts.js", "deleteproducts.js", "searchproducts.js"];
         var mysql = req.app.get('mysql');
         getProductsByBrand(req,res, mysql, context, complete);
+        getBrands(res, mysql, context, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 2){
+                res.render('products', context);
+            }
+        }
+    });
+
+        /*Display all products from a given brand or type*/
+
+    router.get('/filter/type/:type', function(req, res){
+        var callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["filterproducts.js", "deleteproducts.js", "searchproducts.js"];
+        var mysql = req.app.get('mysql');
         getProductsByType(req,res, mysql, context, complete);
         getBrands(res, mysql, context, complete);
         function complete(){
@@ -122,8 +138,12 @@ module.exports = function(){
         sql = mysql.pool.query(sql,inserts,function(error, results, fields) {
             if(error){
                 console.log(JSON.stringify(error));
+                if (error.errno == 1062){    //if there's a duplicate error
+                    console.log("Duplicate error.");
+                    res.render('duplicate');
+                } else {  
                 res.write(JSON.stringify(error));
-                res.end();
+                res.end();}
             }else{
                 res.redirect('/products');
             }

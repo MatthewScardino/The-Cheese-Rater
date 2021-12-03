@@ -121,8 +121,12 @@ module.exports = function(){
         sql = mysql.pool.query(sql,inserts,function(error, results, fields) {
             if(error){
                 console.log(JSON.stringify(error));
+                if (error.errno == 1062){    //if there's a duplicate error
+                    console.log("Duplicate error.");
+                    res.render('duplicate');
+                } else {  
                 res.write(JSON.stringify(error));
-                res.end();
+                res.end();}
             }else{
                 res.redirect('/reviews');
             }

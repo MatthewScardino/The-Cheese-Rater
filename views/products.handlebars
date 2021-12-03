@@ -26,7 +26,7 @@
 <h1 style='text-align: center;'>Products</h1>
 
 
-<form id='filter_products' action='' method=''>
+<form id='filter_products_by_brand' action='' method=''>
     <label> Filter by Brand: </label>
     <select id='brand_filter' name="brands"> 
         {{#each brands}}
@@ -34,9 +34,9 @@
         {{/each}}
     </select>
     <input type="button" value="Filter" onclick= "filterProductsByBrand()">
-</form>
+</form></br>
 
-<form id='filter_products' action='' method=''>
+<form id='filter_products_by_type' action='' method=''>
     <label> Filter by Type: </label>
     <select id='type_filter' name="type"> 
         {{#each products}}
@@ -44,15 +44,15 @@
         {{/each}}
     </select>
     <input type="button" value="Filter" onclick= "filterProductsByType()">
-</form>
+</form></br>
 
 <form id='search_products' action='' method=''>
-    <label> Search by Name Starting With:</label>
+    <label> Search Name (starting with):</label>
     <input id='name_search_string' type='text' name='name_search_string' value=''>
     <input type="button" onclick= "searchProductsByName()" value='Search'>
 </form><br>
 
-<a href='/products'><button>Reset</button></a><br><br>
+<a href='/products'><button>Reset Filters</button></a><br><br>
 
 <table class='table'>
     <thead> 

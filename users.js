@@ -50,8 +50,12 @@ module.exports = function(){
         sql = mysql.pool.query(sql,inserts,function(error, results, fields) {
             if(error){
                 console.log(JSON.stringify(error));
+                if (error.errno == 1062){    //if there's a duplicate error
+                    console.log("Duplicate error.");
+                    res.render('duplicate');
+                } else {  
                 res.write(JSON.stringify(error));
-                res.end();
+                res.end();}
             }else{
                 res.redirect('/users');
             }
@@ -87,7 +91,7 @@ module.exports = function(){
         getUsers(res, mysql, context, complete);
         function complete(){
             callbackCount++;
-            if(callbackCount >= 3){
+            if(callbackCount >= 2){
                 res.render('update-user', context);
             }
         }

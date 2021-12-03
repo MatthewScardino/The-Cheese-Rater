@@ -28,6 +28,7 @@ app.use('/suggestions', require('./suggestions.js'));
 app.use('/', express.static('public'));
 
 
+
 app.use(function(req,res){
   res.status(404);
   res.render('404');

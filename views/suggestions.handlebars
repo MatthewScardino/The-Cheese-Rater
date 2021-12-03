@@ -40,7 +40,7 @@
             <td value="{{product_ID}}">{{product_name}}</td>               
             <td value="{{pairing_ID}}">{{pairing_name}}</td> 
             <td value="{{user_ID}}">{{fname}} {{lname}}</td> 
-            <td>{{suggestion_date}}</td>
+            <td style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 6.5ch;">{{suggestion_date}}</td>
             <td>{{# if comment}}{{comment}}{{else}}None{{/if}}</td>
             <td>
                 <button onclick= deleteSuggestion(({{product_ID}}+"-"+{{pairing_ID}}+"-"+{{user_ID}}))>Delete</button>
