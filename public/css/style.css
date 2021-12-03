@@ -90,3 +90,7 @@ th {
 tr:hover{
 	background-color: lightgoldenrodyellow;
 }
+
+.entry-form{
+	padding: 1em;
+}

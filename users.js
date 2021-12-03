@@ -13,7 +13,20 @@ module.exports = function(){
             context.users = results;
             complete();
         });
-    }
+    };
+
+    function getUser(res, mysql, context, user_ID, complete){
+        var sql = "SELECT user_ID, fname, lname, email, password FROM Users WHERE user_ID =?";
+        var inserts = [user_ID];
+        mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.user = results[0];
+            complete();
+        });
+    };
 
     /*Display all Users*/
 
@@ -61,7 +74,45 @@ module.exports = function(){
                 res.status(202).end();
             }
         })
-    })
+    });
+
+    /* Display one User for the specific purpose of updating the user */
+
+    router.get('/:user_ID', function(req, res){
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updateuser.js"];
+        var mysql = req.app.get('mysql');
+        getUser(res, mysql, context, req.params.user_ID, complete);
+        getUsers(res, mysql, context, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 3){
+                res.render('update-user', context);
+            }
+        }
+    });
+
+    /* The URI that update data is sent to in order to update a review */
+
+    router.put('/:user_ID', function(req, res){
+        var mysql = req.app.get('mysql');
+        console.log(req.body)
+        console.log(req.params.user_ID)
+        var sql = "UPDATE Users SET fnameD=?, lname=?, email=?, password=? WHERE user_ID=?";
+        var inserts = [req.body.fname, req.body.lname, req.body.email, req.body.password, req.params.user_ID];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
+            }
+        });
+    });
+
 
     return router;
 }();

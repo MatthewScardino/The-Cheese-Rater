@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Update-User</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+</style>
+<script src=""></script>
+
+<body>
+
+  <div>
+      <div class="nav-bar">
+        <a href= / >Home</a>
+        <a href= /users >Users</a>
+        <a href= /brands >Brands</a>
+        <a href= /products >Products</a>
+        <a href= /reviews >Reviews</a>           
+        <a href= /pairings>Pairings</a>
+        <a href= /suggestions>Suggestions</a>
+      </div><br>
+    </div><br><br>
+
+
+<h1>Update User {{user.fname}} {{user.lname}}:</h1>
+<form id="update-user" action="/users" method="post">
+
+    First Name: <input name="fname" type="text" maxlength="25" value="{{user.fname}}"><br><br>
+
+    Last Name: <input name="lname" type="text" maxlength="25" value="{{user.lname}}"><br><br>
+
+    Rating: <input name="email" type="text" maxlength="255" value="{{user.email}}"><br><br>  
+
+    Password: <input name="password" type="text" maxlength="25" value="{{user.password}}"><br><br>
+</form>
+<button onclick= updateUser({{user.user_ID}})>Update</button>
+</html>
