@@ -7,7 +7,7 @@ function filterProductsByBrand() {
 
 function filterProductsByType() {
     //get the type from the filter dropdown
-    var type = document.getElementById('brand_filter').value
+    var type = document.getElementById('type_filter').value
     //construct the URL and redirect to it
     window.location = "/products/filter/" + parseInt(type)
 }

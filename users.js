@@ -93,13 +93,13 @@ module.exports = function(){
         }
     });
 
-    /* The URI that update data is sent to in order to update a review */
+    /* The URI that update data is sent to in order to update a user */
 
     router.put('/:user_ID', function(req, res){
         var mysql = req.app.get('mysql');
         console.log(req.body)
         console.log(req.params.user_ID)
-        var sql = "UPDATE Users SET fnameD=?, lname=?, email=?, password=? WHERE user_ID=?";
+        var sql = "UPDATE Users SET fname=?, lname=?, email=?, password=? WHERE user_ID=?";
         var inserts = [req.body.fname, req.body.lname, req.body.email, req.body.password, req.params.user_ID];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){

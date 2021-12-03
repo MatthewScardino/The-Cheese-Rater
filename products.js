@@ -44,6 +44,22 @@ module.exports = function(){
           });
       }
 
+    /*Filter function - Display all products of a given type.*/
+
+    function getProductsByType(req, res, mysql, context, complete){
+        var query = "SELECT product_name, type, Brands.brand_name, description FROM Products INNER JOIN Brands ON Brands.brand_ID = Products.brand_ID WHERE type = ?";
+        console.log(req.params)
+        var inserts = [req.params.type]
+        mysql.pool.query(query, inserts, function(error, results, fields){
+              if(error){
+                  res.write(JSON.stringify(error));
+                  res.end();
+              }
+              context.products = results;
+              complete();
+          });
+      }
+
     /* Find procucts name that starts with a given string */
     
     function getProductsWithNameLike(req, res, mysql, context, complete) {
@@ -77,7 +93,7 @@ module.exports = function(){
         }
     });
 
-    /*Display all products from a given brand*/
+    /*Display all products from a given brand or type*/
 
     router.get('/filter/:brand_ID', function(req, res){
         var callbackCount = 0;
@@ -85,6 +101,7 @@ module.exports = function(){
         context.jsscripts = ["filterproducts.js"];
         var mysql = req.app.get('mysql');
         getProductsByBrand(req,res, mysql, context, complete);
+        getProductsByType(req,res, mysql, context, complete);
         getBrands(res, mysql, context, complete);
         function complete(){
             callbackCount++;
